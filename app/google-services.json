@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "431464084459",
+    "project_id": "online-food1",
+    "storage_bucket": "online-food1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431464084459:android:6f75d33e062334edd2dfae",
+        "android_client_info": {
+          "package_name": "com.bintangsatria.onlinefood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD5k5zwlO4CTiIqjbI9COEYs42xHvEbbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
