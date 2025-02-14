@@ -2,9 +2,7 @@ package com.bintangsatria.onlinefood.activity.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.window.SplashScreen
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,11 +25,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.bintangsatria.onlinefood.MainActivity
+import com.bintangsatria.onlinefood.activity.dashboard.MainActivity
 import com.bintangsatria.onlinefood.R
-import kotlinx.coroutines.flow.SharingStarted
+import com.bintangsatria.onlinefood.activity.BaseActivity
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
