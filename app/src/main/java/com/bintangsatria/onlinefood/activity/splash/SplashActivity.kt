@@ -1,5 +1,10 @@
 package com.bintangsatria.onlinefood.activity.splash
 
+import android.content.Intent
+import android.os.Bundle
+import android.window.SplashScreen
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -22,22 +27,36 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.bintangsatria.onlinefood.MainActivity
 import com.bintangsatria.onlinefood.R
+import kotlinx.coroutines.flow.SharingStarted
 
-@Preview
-@Composable
-fun SplashScreenPreview() {
-    SplashScreen(onGetStartClick = { })
+class SplashActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            SplashScreen(onGetStartedClick = {
+                startActivity(Intent(this, MainActivity::class.java))
+            })
+
+
+        }
+
+    }
 }
 
 @Composable
-fun SplashScreen(onGetStartClick: () -> Unit) {
-    Column(modifier = Modifier
+@Preview
+fun SplashScreen(onGetStartedClick: ()-> Unit={}){
+    Column ( modifier = Modifier
         .fillMaxSize()
         .background(color = colorResource(id = R.color.darkBrown))
+
     ) {
-        ConstraintLayout(modifier = Modifier.padding(top = 48.dp)) {
-            val (backgroundImg, logiImg) = createRefs()
+        ConstraintLayout(modifier = Modifier
+            .padding(top = 48.dp)) {
+            val (backgroundImg,logoImg)=createRefs()
             Image(
                 painter = painterResource(id = R.drawable.intro_pic),
                 contentDescription = null,
@@ -51,13 +70,14 @@ fun SplashScreen(onGetStartClick: () -> Unit) {
             Image(
                 painter = painterResource(id = R.drawable.pizza),
                 contentDescription = null,
-                modifier = Modifier.constrainAs(logiImg) {
-                    top.linkTo(backgroundImg.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(backgroundImg.bottom)
-                },
-                contentScale = ContentScale.Fit
+                modifier = Modifier.run{
+                    constrainAs (logoImg){
+                        top.linkTo(backgroundImg.top)
+                        bottom.linkTo(backgroundImg.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }
+                }, contentScale = ContentScale.Fit
             )
         }
         val styledText = buildAnnotatedString {
@@ -81,12 +101,14 @@ fun SplashScreen(onGetStartClick: () -> Unit) {
             text = stringResource(R.string.splashSubtitle),
             fontSize = 16.sp,
             color = Color.White,
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier.padding(16.dp)
         )
 
-        GetStartedButton(
-            onClick = onGetStartClick,
-            modifier = Modifier.padding(top = 16.dp)
+
+        GetStartedButton(onClick = onGetStartedClick,
+            modifier = Modifier
+                .padding(top = 16.dp)
         )
+
     }
 }
