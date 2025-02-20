@@ -10,26 +10,30 @@ import com.google.firebase.database.ValueEventListener
 
 class MainRepository {
 
-    private val  firebaseDatabase = FirebaseDatabase.getInstance()
+    private val firebaseDatabase = FirebaseDatabase.getInstance("https://online-food1-default-rtdb.europe-west1.firebasedatabase.app")
 
-    fun loadBanner(): LiveData<MutableList<BannerModel>>{
-        val listData= MutableLiveData<MutableList<BannerModel>>()
+    fun loadBanner(): LiveData<MutableList<BannerModel>> {
+        val listData = MutableLiveData<MutableList<BannerModel>>()
         val ref = firebaseDatabase.getReference("Banners")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val list = mutableListOf<BannerModel>()
-                for (childSnapshot in snapshot.children){
+                for (childSnapshot in snapshot.children) {
                     val item = childSnapshot.getValue(BannerModel::class.java)
-                    list.add(item!!)
+                    if (item != null) {
+                        list.add(item)
+                    }
                 }
-                listData.value=list
-                TODO("Not yet implemented")
+                listData.value = list
+                // Log to check data
+                println("Banners loaded from Firebase: ${list.size}")
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                // Handle possible errors.
+                listData.value = mutableListOf()
+                println("Failed to load banners: ${error.message}")
             }
-
         })
         return listData
     }

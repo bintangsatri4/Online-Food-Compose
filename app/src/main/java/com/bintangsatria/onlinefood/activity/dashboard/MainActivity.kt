@@ -10,9 +10,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.bintangsatria.onlinefood.activity.BaseActivity
-import com.bintangsatria.onlinefood.ui.theme.OnlineFoodTheme
+import com.bintangsatria.onlinefood.domain.BannerModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import com.bintangsatria.onlinefood.ViewModel.ViewModels
+import androidx.compose.ui.tooling.preview.Preview
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,31 +28,53 @@ class MainActivity : BaseActivity() {
         enableEdgeToEdge()
         setContent {
             MainScreen()
-
         }
     }
 }
 
+@Preview
 @Composable
-fun MainScreen (){
+fun MainScreenPreview() {
+    MainScreen()
+}
 
+@Composable
+fun MainScreen() {
     val scaffoldState = rememberScaffoldState()
-    Scaffold(bottomBar = {MyBottomBar() },
+    val viewModel = ViewModels()
+
+    val banners = remember { mutableStateListOf<BannerModel>() }
+
+    var showBannerLoading by remember { mutableStateOf(true) }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadBanner().observeForever {
+            banners.clear()
+            banners.addAll(it)
+            showBannerLoading = false
+            // Log to check data
+            println("Banners loaded: ${banners.size}")
+        }
+    }
+
+    Scaffold(
+        bottomBar = { MyBottomBar() },
         scaffoldState = scaffoldState
-        ){
-
-        paddingValues ->
-        LazyColumn (modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues=paddingValues)
-
-
+    ) { paddingValues ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues = paddingValues)
         ) {
             item {
                 TopBar()
             }
-
+            item {
+                Banner(banners = banners, showBannerLoading = showBannerLoading)
+            }
+            item {
+                Search()
+            }
         }
     }
 }
-
