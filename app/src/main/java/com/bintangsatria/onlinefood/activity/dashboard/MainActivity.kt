@@ -21,6 +21,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.bintangsatria.onlinefood.ViewModel.ViewModels
 import androidx.compose.ui.tooling.preview.Preview
+import com.bintangsatria.onlinefood.domain.CategoryModel
+import java.util.Locale.Category
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,16 +46,24 @@ fun MainScreen() {
     val viewModel = ViewModels()
 
     val banners = remember { mutableStateListOf<BannerModel>() }
+    val categories = remember { mutableStateListOf<CategoryModel>() }
 
-    var showBannerLoading by remember { mutableStateOf(true) }
+    var showBannerLoading by remember { mutableStateOf(value = true) }
+    var showCategoryLoading by remember { mutableStateOf(value = true) }
 
     LaunchedEffect(Unit) {
         viewModel.loadBanner().observeForever {
             banners.clear()
             banners.addAll(it)
             showBannerLoading = false
-            // Log to check data
-            println("Banners loaded: ${banners.size}")
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadCategory().observeForever {
+            categories.clear()
+            categories.addAll(it)
+            showCategoryLoading = false
         }
     }
 
@@ -74,6 +84,9 @@ fun MainScreen() {
             }
             item {
                 Search()
+            }
+            item {
+                CategorySection(categories = categories, showCategoryLoading = showCategoryLoading)
             }
         }
     }
