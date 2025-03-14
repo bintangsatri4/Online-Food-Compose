@@ -16,6 +16,9 @@
         android:theme="@style/Theme.OnlineFood"
         tools:targetApi="31">
         <activity
+            android:name=".activity.itemlist.ItemListActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -28,9 +31,7 @@
             android:name=".activity.dashboard.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.OnlineFood">
-
-        </activity>
+            android:theme="@style/Theme.OnlineFood"></activity>
     </application>
 
 </manifest>

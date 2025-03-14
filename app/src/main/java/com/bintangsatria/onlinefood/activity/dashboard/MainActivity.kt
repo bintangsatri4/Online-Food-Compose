@@ -68,6 +68,7 @@ fun MainScreen() {
     }
 
     Scaffold(
+        topBar = { TopBar() },
         bottomBar = { MyBottomBar() },
         scaffoldState = scaffoldState
     ) { paddingValues ->
@@ -76,9 +77,6 @@ fun MainScreen() {
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues)
         ) {
-            item {
-                TopBar()
-            }
             item {
                 Banner(banners = banners, showBannerLoading = showBannerLoading)
             }

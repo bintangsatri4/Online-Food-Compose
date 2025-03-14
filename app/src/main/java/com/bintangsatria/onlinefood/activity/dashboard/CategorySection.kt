@@ -25,8 +25,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.IntRect
+import androidx.core.content.ContextCompat.startActivity
 import coil.compose.AsyncImage
 import com.bintangsatria.onlinefood.R
+import com.bintangsatria.onlinefood.activity.itemlist.ItemListActivity
 import java.nio.file.WatchEvent
 
 @Composable
@@ -68,7 +71,11 @@ fun CategorySection(categories: SnapshotStateList<CategoryModel>, showCategoryLo
                                 .weight(1f)
                                 .padding(horizontal = 8.dp),
                             onItemClick = {
-
+                                val intent = Intent(context, ItemListActivity::class.java).apply {
+                                    putExtra("id", categoryModel.Id.toString())
+                                    putExtra("title", categoryModel.Name)
+                                }
+                                startActivity(context, intent, null)
                             }
                         )
                     }
