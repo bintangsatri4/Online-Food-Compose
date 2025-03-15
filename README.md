@@ -20,7 +20,7 @@ This project is an Android application for ordering food online. Users can brows
 
 ## 💻 Required Tools & Software
 To run this project, you need:
-- **Android Studio Arctic Fox or later**
+- **Android Studio Flamingo or later**
 - **Java 11 or later**
 - **Gradle 7.0+**
 
