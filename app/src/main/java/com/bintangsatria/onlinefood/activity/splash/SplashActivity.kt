@@ -53,7 +53,7 @@ fun SplashScreen(onGetStartedClick: ()-> Unit={}){
 
     ) {
         ConstraintLayout(modifier = Modifier
-            .padding(top = 48.dp)) {
+            .padding(top = 50.dp)) {
             val (backgroundImg,logoImg)=createRefs()
             Image(
                 painter = painterResource(id = R.drawable.intro_pic),

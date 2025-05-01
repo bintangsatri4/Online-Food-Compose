@@ -79,7 +79,7 @@ private fun ItemListScreen(
     ) {
         ConstraintLayout (
             modifier = Modifier
-                .padding(top = 36.dp, start = 16.dp, end = 16.dp)
+                .padding(top = 60.dp, start = 16.dp, end = 16.dp)
         ){
             val (backBtn, cartTxt) = createRefs()
 
@@ -112,6 +112,7 @@ private fun ItemListScreen(
                 CircularProgressIndicator()
             }
         } else {
+            ItemsList(items = items)
 
         }
 

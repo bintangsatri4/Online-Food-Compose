@@ -26,7 +26,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 @Preview
 fun TopBar(){
     ConstraintLayout (modifier = Modifier
-        .padding(top = 48.dp)
+        .padding(top = 60.dp)
         .padding(horizontal = 16.dp)
         .fillMaxWidth()
     ){

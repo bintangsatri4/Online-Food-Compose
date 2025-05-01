@@ -48,7 +48,7 @@ fun MyBottomBar(){
                     Icon(painter = bottomMenuItem.icon,
                         contentDescription = null,
                         modifier = Modifier
-                            .padding(top = 10.dp)
+                            .padding(top = 0.dp)
                             .size(20.dp)
 
                     )
